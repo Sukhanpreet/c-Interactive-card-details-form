@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+:root {
+    /* -- lineargradient: hsl(249, 99%, 64%) to hsl(278, 94%, 30%); */
+    --red: hsl(0, 100%, 66%);
+    --white: hsl(0, 0%, 100%);
+    --light-grayish-violet: hsl(270, 3%, 87%);
+    --dark-grayish-violet: hsl(279, 6%, 55%);
+    --very-dark-violet: hsl(278, 68%, 11%);
+}
+
+.flex {
+    display: flex;
+}
+
+.grid {
+    display: grid;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.card-background {
+    width: 100%;
+    height: 15rem;
+    background: url(images/bg-main-mobile.png) center center/cover no-repeat;
+}
+
+/* card front */
+
+.card {
+    width: 18rem;
+    height: 9.8rem;
+    aspect-ratio: 1;
+}
+
+.front {
+    position: absolute;
+}
+
+.card-front {
+    position: absolute;
+    top: 8rem;
+    left: 1rem;
+    color: var(--white);
+    z-index: 10;
+}
+
+#logo {
+    width: 3rem;
+}
+
+.card-details {
+    padding: 1.2rem;
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.c-details {
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#c-number {
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    text-align: center;
+}
+
+.c-info {
+    justify-content: space-between;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+
+
+/* card back */
+.card-back {
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+    color: var(--white);
+}
+
+#cvv {
+    font-size: 0.6rem;
+    position: absolute;
+    top: 4.4rem;
+    left: 14rem;
+    letter-spacing: 0.1rem;
+}
+
+/* form */
+
+.form-part {
+    padding-block-start: 5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+form.card-form {
+    width: 20rem;
+    display: grid;
+    grid-template-areas: "name name"
+        "number number"
+        "expdate cvc"
+        "button button";
+    gap: 0.5rem;
+}
+
+label {
+    display: block;
+    text-transform: uppercase;
+    color: var(--very-dark-violet);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    padding-block: 0.7rem 0.6rem;
+}
+
+.input {
+    width: 100%;
+    border: 1px solid var(--light-grayish-violet);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+::placeholder {
+    color: var(--light-grayish-violet);
+}
+
+#holder-name {
+    grid-area: name;
+}
+
+#holder-number {
+    grid-area: number;
+}
+
+#holder-exp-date {
+    grid-area: expdate;
+}
+
+#date {
+    gap: 0.5rem;
+}
+
+#holder-cvc {
+    grid-area: cvc;
+}
+
+#button {
+    grid-area: button;
+    margin-block-start: 1rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--very-dark-violet);
+    color: var(--white);
+}
+
+
+@media (min-width:600px) {
+    .card-front {
+        left: 20%;
+    }
+
+    .card-back {
+        right: 20%;
+    }
+}
+
+@media (min-width:900px) {
+    .card-background {
+        width: 100%;
+        height: 100%;
+        background: url(images/bg-main-desktop.png) center center/cover no-repeat;
+    }
+
+    .container {
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 20rem 1fr;
+    }
+
+    .form-part {
+        padding-block-start: 0;
+        padding-inline-start: 10rem;
+    }
+
+
+    .card {
+        width: 20rem;
+        height: 12rem;
+    }
+
+    .card-front {
+        left: 9rem;
+        top: 22%;
+    }
+
+    .card-back {
+        left: 12rem;
+        top: 55%;
+        font-size: 1rem;
+    }
+
+    #logo {
+        width: 4rem;
+    }
+
+    #c-number {
+        font-size: 1.4rem;
+    }
+
+    .c-info {
+        font-size: 0.8rem;
+    }
+
+    #cvv {
+        font-size: 0.8rem;
+        top: 5.4rem;
+        left: 16rem;
+    }
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor | Interactive card details form</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- card -->
+      <div class="card-part">
+        <div class="card-background"></div>
+
+        <div class="card-front">
+          <img
+            src="images/bg-card-front.png"
+            alt="card front image"
+            class="card front"
+          />
+          <div class="card front card-details grid">
+            <div class="c-logo">
+              <img src="images/card-logo.svg" alt="" id="logo" />
+            </div>
+            <div class="flex c-details">
+              <p id="c-number">0000 0000 0000 0000</p>
+              <div class="c-info flex">
+                <p id="c-name">Jane Appleseed</p>
+                <p><span id="exp-mm">00</span>/<span id="exp-yy">50</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <img
+            src="images/bg-card-back.png"
+            alt="card back image"
+            class="card"
+          />
+          <p id="cvv">000</p>
+        </div>
+      </div>
+
+      <!-- form -->
+
+      <div class="form-part flex">
+        <form class="card-form">
+          <div id="holder-name">
+            <label for="name">Cardholder Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="input"
+              placeholder="e.g. Jane Appleseed"
+            />
+          </div>
+
+          <div id="holder-number">
+            <label for="number">Card Number</label>
+            <input
+              type="text"
+              name="number"
+              id="number"
+              placeholder="e.g. 1234 5678 9123 0000"
+              class="input"
+            />
+          </div>
+
+          <div id="holder-exp-date">
+            <label for="exp-date">Exp. Date (MM/YY)</label>
+            <div class="flex" id="date">
+              <input
+                type="text"
+                name="month"
+                id="month"
+                placeholder="MM"
+                class="input"
+              />
+              <input
+                type="text"
+                name="year"
+                id="year"
+                placeholder="YY"
+                class="input"
+              />
+            </div>
+          </div>
+
+          <div id="holder-cvv">
+            <label for="cvv">CVC</label>
+            <input
+              type="text"
+              name="cvv"
+              id="f-cvv"
+              placeholder="e.g. 123"
+              class="input"
+            />
+          </div>
+
+          <input type="button" value="Confirm" id="button" />
+        </form>
+      </div>
+    </div>
+    <!-- Completed state start -->
+
+    <!-- Thank you!
+  We've added your card details
+  Continue -->
+  </body>
+</html>
