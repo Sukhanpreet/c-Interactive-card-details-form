@@ -61,68 +61,83 @@
       <article class="form-part flex">
         <section class="card-form">
           <form>
-            <div id="holder-name">
+            <div id="holder-name" class="parent">
               <label for="name">Cardholder Name</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                class="input"
-                placeholder="e.g. Jane Appleseed"
-                data-type="name"
-              />
-            </div>
-
-            <div id="holder-number">
-              <label for="number">Card Number</label>
-              <input
-                type="text"
-                name="number"
-                id="number"
-                placeholder="e.g. 1234 5678 9123 0000"
-                class="input"
-                data-type="number"
-              />
-            </div>
-
-            <div id="holder-exp-date">
-              <label for="exp-date">Exp. Date (MM/YY)</label>
-              <div class="flex" id="date">
+              <div class="wrap">
                 <input
                   type="text"
-                  name="month"
-                  id="month"
-                  placeholder="MM"
+                  name="name"
+                  id="name"
                   class="input"
-                  data-type="month"
-                />
-                <input
-                  type="text"
-                  name="year"
-                  id="year"
-                  placeholder="YY"
-                  class="input"
-                  data-type="year"
+                  placeholder="e.g. Jane Appleseed"
+                  data-type="name"
                 />
               </div>
+
+              <div class="msg"></div>
             </div>
 
-            <div id="holder-cvc">
+            <div id="holder-number" class="parent">
+              <label for="number">Card Number</label>
+              <div class="wrap">
+                <input
+                  type="text"
+                  name="number"
+                  id="number"
+                  placeholder="e.g. 1234 5678 9123 0000"
+                  class="input"
+                  data-type="number"
+                />
+              </div>
+              <div class="msg"></div>
+            </div>
+
+            <div id="holder-exp-date" class="parent">
+              <label for="exp-date">Exp. Date (MM/YY)</label>
+              <div class="flex" id="date">
+                <div class="wrap">
+                  <input
+                    type="number"
+                    name="month"
+                    id="month"
+                    placeholder="MM"
+                    class="input"
+                    data-type="month"
+                  />
+                </div>
+                <div class="wrap">
+                  <input
+                    type="number"
+                    name="year"
+                    id="year"
+                    placeholder="YY"
+                    class="input"
+                    data-type="year"
+                  />
+                </div>
+              </div>
+              <div class="msg"></div>
+            </div>
+
+            <div id="holder-cvc" class="parent">
               <label for="cvc">CVC</label>
-              <input
-                type="text"
-                name="cvc"
-                id="cvc"
-                placeholder="e.g. 123"
-                class="input"
-                data-type="cvc"
-              />
+              <div class="wrap">
+                <input
+                  type="number"
+                  name="cvc"
+                  id="cvc"
+                  placeholder="e.g. 123"
+                  class="input"
+                  data-type="cvc"
+                />
+              </div>
+              <div class="msg"></div>
             </div>
 
-            <input type="button" value="Confirm" class="button" />
+            <input type="button" value="Confirm" class="button" id="submit" />
           </form>
         </section>
-        <section class="thankyou flex">
+        <section class="thankyou flex hidden">
           <div>
             <img src="images/icon-complete.svg" alt="complete icon" />
           </div>

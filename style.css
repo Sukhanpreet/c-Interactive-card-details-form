@@ -90,7 +90,7 @@ body {
     font-size: 0.6rem;
     position: absolute;
     top: 4.4rem;
-    left: 14rem;
+    right: 2rem;
     letter-spacing: 0.1rem;
 }
 
@@ -119,19 +119,38 @@ label {
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.1rem;
-    padding-block: 0.7rem 0.6rem;
+    padding-block: 0 0.6rem;
 }
+
 
 .input {
     width: 100%;
-    border: 1px solid var(--light-grayish-violet);
+    border: 0.1rem solid var(--light-grayish-violet);
     border-radius: 0.5rem;
     font-size: 1rem;
     padding: 0.5rem;
+    margin: 0%;
+}
+
+.wrap {
+    background: linear-gradient(to right,
+            hsl(249, 99%, 64%),
+            hsl(278, 94%, 30%));
+    border-radius: 0.6rem;
+}
+
+.input:hover,
+.input:focus {
+    width: calc(100% - 0.2rem);
+    margin: 0.1rem;
+    border: none;
+    border-radius: 0.5rem;
+    outline: 0px;
 }
 
 ::placeholder {
     color: var(--light-grayish-violet);
+    letter-spacing: 0.1rem;
 }
 
 #holder-name {
@@ -157,7 +176,7 @@ label {
 .button {
     width: 100%;
     grid-area: button;
-    margin-block-start: 1rem;
+    margin-block-start: 0.5rem;
     font-size: 1rem;
     font-weight: 400;
     padding: 1rem;
@@ -167,9 +186,15 @@ label {
     color: var(--white);
 }
 
+/* .card-form {
+    display: none;
+} */
+
+.hidden {
+    display: none;
+}
 
 .thankyou {
-    display: none;
     width: 20rem;
     flex-direction: column;
     gap: 1.5rem;
@@ -187,6 +212,29 @@ label {
 .thankyou p {
     color: var(--dark-grayish-violet);
     letter-spacing: 0.1rem;
+}
+
+.invalid {
+    border: 0.1rem solid var(--red);
+}
+
+.msg {
+    color: var(--red);
+    font-size: 0.8rem;
+    padding-block: 0.4rem;
+    /* height: 1.5rem; */
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 @media (min-width:600px) {
@@ -251,6 +299,5 @@ label {
     #card-cvc {
         font-size: 0.8rem;
         top: 5.4rem;
-        left: 16rem;
     }
 }
