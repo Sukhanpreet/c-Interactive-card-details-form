@@ -132,6 +132,14 @@ label {
     margin: 0%;
 }
 
+.input[data-type='name'] {
+    text-transform: capitalize;
+}
+
+.input[data-type='name']::placeholder {
+    text-transform: none;
+}
+
 .wrap {
     background: linear-gradient(to right,
             hsl(249, 99%, 64%),
@@ -174,6 +182,7 @@ label {
 }
 
 .button {
+    cursor: pointer;
     width: 100%;
     grid-area: button;
     margin-block-start: 0.5rem;
@@ -184,11 +193,12 @@ label {
     border-radius: 0.5rem;
     background: var(--very-dark-violet);
     color: var(--white);
+    transition: all 0.5s;
 }
 
-/* .card-form {
-    display: none;
-} */
+.button:hover {
+    background: var(--dark-grayish-violet);
+}
 
 .hidden {
     display: none;

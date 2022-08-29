@@ -1,44 +1,55 @@
 console.log("script working")
 
-let cardName=document.querySelector('#card-name');
-let cardNumber=document.querySelector('#card-number')
-let cardCVC=document.querySelector('#card-cvc')
-let cardMM=document.querySelector('#exp-month')
-let cardYY=document.querySelector('#exp-year')
+const cardName=document.querySelector('#card-name');
+const cardNumber=document.querySelector('#card-number')
+const cardCVC=document.querySelector('#card-cvc')
+const cardMM=document.querySelector('#exp-month')
+const cardYY=document.querySelector('#exp-year')
 
 let isFormValid=false;   
 
-// =============== name input =================
-let nameInput = document.querySelector('[data-type="name"]');
-
-let resetelem = (elem)=>{   
-    elem.closest('.parent').lastElementChild.innerHTML="";
-    elem.classList.remove('invalid');
-}
+// =============== card name =================
+const nameInput = document.querySelector('[data-type="name"]');
 
 nameInput.addEventListener('input',()=>{
     resetelem(nameInput);
 
-    if(nameInput.value.length<=24) {
-        if(nameInput.value==''){
-            cardName.textContent='jane appleseed';
-        }else{
-            cardName.textContent=nameInput.value;
-        }
+    if(nameInput.value.length>24){
+        nameInput.value=nameInput.value.slice(0,24);
     }
+    if(nameInput.value==''){
+        cardName.textContent='jane appleseed';
+    }else{
+        cardName.textContent=nameInput.value;
+    } 
 });
 
 // ============== card number =============
-let numberInput= document.querySelector('[data-type="number"]');
+const numberInput= document.querySelector('[data-type="number"]');
+
 numberInput.addEventListener('input',()=>{
     resetelem(numberInput);
 
-    if(numberInput.value.length<=19) {
-        if(numberInput.value==''){
-            cardNumber.textContent='0000 0000 0000 0000';
-        }else{
-            cardNumber.textContent=numberInput.value;
-        }
+    let val=numberInput.value;
+    let newval='';
+
+    val = val.replace(/\s/g, '');
+
+    for(let i=0;i<val.length;i++){
+        if(i%4 == 0 && i>0)
+        newval=newval.concat(' ');
+        newval=newval.concat(val[i]);
+    }
+
+    numberInput.value=newval;
+
+    if(numberInput.value.length>19){
+        numberInput.value=numberInput.value.slice(0,19);
+    }
+    if(numberInput.value==''){
+        cardNumber.textContent='0000 0000 0000 0000';
+    }else{
+        cardNumber.textContent=numberInput.value;
     }
 });
 
@@ -46,16 +57,17 @@ numberInput.addEventListener('input',()=>{
 let monthInput= document.querySelector('[data-type="month"]');
 monthInput.addEventListener('input',()=>{
     resetelem(monthInput);
-    
+    if(monthInput.value.length>=2){
+        monthInput.value=monthInput.value.slice(0,2);
+    }
     if(monthInput.value>12) monthInput.value=12;
     if(monthInput.value<0) monthInput.value=0;
-    
+
     if(monthInput.value=='' || monthInput.value==0){
         cardMM.textContent='00';
     }else{
         cardMM.textContent=monthInput.value;
-    }
-
+    }  
 });
 
 // =============== exp year ================
@@ -63,44 +75,51 @@ let yearInput= document.querySelector('[data-type="year"]');
 
 yearInput.addEventListener('input',()=>{
     resetelem(yearInput);
-    
-    if(yearInput.value>99) yearInput.value=99;
+    if(yearInput.value.length>=2){
+        yearInput.value=yearInput.value.slice(0,2);
+    }
+
     if(yearInput.value<0) yearInput.value=0;
-    
+
     if(yearInput.value=='' || yearInput.value==0){
         cardYY.textContent='00';
     }else{
         cardYY.textContent=yearInput.value;
-    }
-    console.log(yearInput.value);
+    } 
 });
-// =============== exp year ================
+
+// =============== cvc ================
 let cvcInput= document.querySelector('[data-type="cvc"]');
 
 cvcInput.addEventListener('input',()=>{
     resetelem(cvcInput);
     
-    if(cvcInput.value>999) cvcInput.value=999;
-    if(cvcInput.value<0) cvcInput.value=0;
-    
+    if(cvcInput.value.length>=3){
+        cvcInput.value=cvcInput.value.slice(0,3);
+    }
     if(cvcInput.value=='' || cvcInput.value==0){
         cardCVC.textContent='000';
     }else{
         cardCVC.textContent=cvcInput.value;
     }
-    console.log(cvcInput.value);
 });
 
+let resetelem = (elem)=>{   
+    let msg=elem.closest('.parent').querySelector('.msg');
+    msg.innerHTML="";
+    elem.classList.remove('invalid');
+}
 
 
-let submit=document.getElementById('submit');
+
 const form=document.querySelector('.card-form');
 const thanks=document.querySelector('.thankyou');
 
+// ===========submit btn ================
+const submit=document.getElementById('submit');
 submit.addEventListener('click',(e)=>{
     e.preventDefault();
-    console.log('here');
-    
+
     validateInputs();
     
     if(isFormValid){
@@ -109,65 +128,88 @@ submit.addEventListener('click',(e)=>{
     }
 });
 
+// err feilds
+const nameError= document.getElementById('name-error');
+const numberError= document.getElementById('number-error');
+const expError= document.getElementById('exp-error');
+const cvcError= document.getElementById('cvc-error');
+
+
+// invalid inputs
+const invalidate=(elem)=>{
+    elem.classList.add('invalid');
+    isFormValid=false;
+}
+
+// check input validity 
 const validateInputs = () =>{
+    
     isFormValid=true;
 
-    let nameRegex=/^[a-z][a-z .,'-]{0,31}$/ig;
+    let nameRegex=/^[a-z][a-z .,'-]{0,}$/ig;
     let numberRegex =/^\d{4} \d{4} \d{4} \d{4} *$/
-    let expRegex =/^\d{2}$/;
+    let monthRegex=/^0[1-9]$|^1[0-2]$/
+    let yearRegex =/^\d{2}$/;
     let cvcRegex =/^\d{3}$/;
+    let err1="Can't be blank";
+    let err2="Wrong format";
 
     if(!nameInput.value){
-        nameInput.closest('.parent').lastElementChild.innerHTML="Can't be blank";
-        nameInput.classList.add('invalid');
-        isFormValid=false;
+        nameError.innerHTML=err1;
+        invalidate(nameInput);
     }else if(nameRegex.test(nameInput.value)==false){
-        nameInput.closest('.parent').lastElementChild.innerHTML="Wrong format";
-        nameInput.classList.add('invalid');
-        isFormValid=false;
+        nameError.innerHTML=err2;
+        invalidate(nameInput);
     }
 
     if(!numberInput.value){
-        numberInput.closest('.parent').lastElementChild.innerHTML="Can't be blank number";
-        numberInput.classList.add('invalid');
-        isFormValid=false;
+        numberError.innerHTML=err1;
+        invalidate(numberInput);
+    }else if(numberInput.value.length!=19){
+        numberError.innerHTML=`${err2}, must contains 16 digits`;
+        invalidate(numberInput);
     }else if(numberRegex.test(numberInput.value)==false){
-        numberInput.closest('.parent').lastElementChild.innerHTML="Wrong format number";
-        numberInput.classList.add('invalid');
-        isFormValid=false;
+        numberError.innerHTML=`${err2}, Numbers only`;
+        invalidate(numberInput);
     }
 
-    if(!monthInput.value){
-        monthInput.closest('.parent').lastElementChild.innerHTML="Can't be blank";
-        monthInput.classList.add('invalid');
-        isFormValid=false;
-        console.log(expRegex.test(monthInput.value));
-    }else if(expRegex.test(monthInput.value)==false || monthInput.value==0){
-        monthInput.closest('.parent').lastElementChild.innerHTML="Wrong format";
-        monthInput.classList.add('invalid');
-        isFormValid=false;
+    if(!monthInput.value  || monthInput.value==0){
+        expError.innerHTML=err1;
+        invalidate(monthInput);
+    }else if(monthRegex.test(monthInput.value)==false){
+        expError.innerHTML=err2;
+        invalidate(monthInput);
     }
 
     if(!yearInput.value){
-        yearInput.closest('.parent').lastElementChild.innerHTML=" Can't be blank";
-        yearInput.classList.add('invalid');
-        isFormValid=false;
-    }else if(expRegex.test(yearInput.value)==false){
-        yearInput.closest('.parent').lastElementChild.innerHTML="Wrong format";
-        yearInput.classList.add('invalid');
-        isFormValid=false;
+        if(expError.innerHTML===''){
+            expError.innerHTML=err1;
+        }else if(expError.innerHTML==err2){
+            expError.innerHTML=`Month ${err2}, Year ${err1}`; 
+        }
+        invalidate(yearInput);
+    }else if(yearRegex.test(yearInput.value)==false){
+        if(expError.innerHTML===''){
+            expError.innerHTML=err2;
+        }else if(expError.innerHTML==err1){
+            expError.innerHTML=`Month ${err1}, Year ${err2}`;
+        }
+        invalidate(yearInput);
     }
+
     if(!cvcInput.value){
-        cvcInput.closest('.parent').lastElementChild.innerHTML=" Can't be blank cvc";
-        cvcInput.classList.add('invalid');
-        isFormValid=false;
+        cvcError.innerHTML=err1;
+        invalidate(cvcInput);
     }else if(cvcRegex.test(cvcInput.value)==false){
-        cvcInput.closest('.parent').lastElementChild.innerHTML="Wrong format cvc";
-        cvcInput.classList.add('invalid');
-        isFormValid=false;
+        cvcError.innerHTML=err2;
+        invalidate(cvcInput);
     }
-
-
 }
 
+// ==============continue btn=============
+const continueBtn=document.getElementById('continue');
+
+continueBtn.addEventListener('click',()=>{
+    location.reload();
+});
 
